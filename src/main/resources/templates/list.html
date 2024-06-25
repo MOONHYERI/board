@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table, tr, td, th{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td{
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<a href="/save">글쓰기</a>
+<table>
+    <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성시간</th>
+        <th>조회수</th>
+    </tr>
+    <tr th:each="board: ${boardList}"> <!--th가 붙은것들은 thymeleaf가 제공하는 속성. each는 foreach같이 반복문(th:each="반복변수${반복대상}). boardList는 controller에서 attribute에 넣은 boardList-->
+        <td th:text="${board.id}"></td> <!--th:text는 text형태로 ${}안에 있는건 DTO에 있는 필드를 불러오겠다고 하는 것-->
+        <td>
+            <a th:text="${board.boardTitle}" th:href="@{|/${board.id}|}"></a> <!--경로에 파라미터를 같이 쓸 때 쓰는 thymeleaf문법-->
+        </td>
+        <td th:text="${board.boardWriter}"></td>
+        <td th:text="${board.createdAt}"></td>
+        <td th:text="${board.boardHits}"></td>
+    </tr>
+</table>
+</body>
+</html>
